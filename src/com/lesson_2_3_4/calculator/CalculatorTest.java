@@ -12,17 +12,12 @@ public class CalculatorTest {
             System.out.println("Input Math Phrase");
             calc.setInputMathPhrase(scan.nextLine());
 
-//            System.out.print("input sign\n");
-//            calc.setSign(scan.next());
-//
-//            System.out.print("Input second number\n");
-//            calc.setSecondNumber(scan.nextInt());
-
             if (calc.Calculate() == null) {
                 System.out.println("Not correct sign");
             } else {
             System.out.println(calc.Calculate());
             }
+
             do {
                 System.out.println("Do u wanna continue? [y/n]");
                 answerContinue = scan.next();
