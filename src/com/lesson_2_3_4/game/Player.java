@@ -1,4 +1,4 @@
-package com.lesson_2_3_4.game;
+package com.lesson_2_3_4.game;//1
 
 public class Player {	
 	private String name;
