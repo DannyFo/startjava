@@ -1,4 +1,4 @@
-package com.lesson_2_3_4.game;
+package com.lesson_2_3_4.game;//1
 
 import java.util.Arrays;
 import java.util.Scanner;

@@ -1,4 +1,4 @@
-package com.lesson_1.game;
+package com.lesson_1.game;//1
 
 public class MyFirstGame {	
 	public static void main(String[] args) {
