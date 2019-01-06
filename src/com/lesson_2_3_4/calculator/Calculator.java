@@ -9,17 +9,17 @@ public class Calculator {
         this.inputMathPhrase = inputMathPhrase;
     }
 
-    public String getInputMathPhraser() {
+    public String getInputMathPhrase() {
         return inputMathPhrase;
     }
 
-    public Double Calculate() {
-        String[] MathPhrase = inputMathPhrase.split(" ");
+    public Double calculate() {
+        String[] mathPhrase = inputMathPhrase.split(" ");
 
-        double firstNumber = Double.parseDouble(MathPhrase[0]);
-        double secondNumber = Double.parseDouble(MathPhrase[2]);
+        double firstNumber = Double.parseDouble(mathPhrase[0]);
+        double secondNumber = Double.parseDouble(mathPhrase[2]);
 
-        switch (MathPhrase[1]) {
+        switch (mathPhrase[1]) {
             case "+": return (firstNumber + secondNumber);
             case "*" : return (firstNumber * secondNumber);
             case "/" : return (firstNumber / secondNumber);
@@ -29,4 +29,5 @@ public class Calculator {
             default: return null;
         }
     }
+
 }

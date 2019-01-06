@@ -12,15 +12,15 @@ public class CalculatorTest {
             System.out.println("Input Math Phrase");
             calc.setInputMathPhrase(scan.nextLine());
 
-            if (calc.Calculate() == null) {
+            if (calc.calculate() == null) {
                 System.out.println("Not correct sign");
             } else {
-            System.out.println(calc.Calculate());
+            System.out.println(calc.calculate());
             }
 
             do {
                 System.out.println("Do u wanna continue? [y/n]");
-                answerContinue = scan.next();
+                answerContinue = scan.nextLine();
             } while(!answerContinue.equals("n") && !answerContinue.equals("y"));
         } while(answerContinue.equals("y"));
     }
