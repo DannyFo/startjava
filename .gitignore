@@ -1,1 +1,6 @@
 out
+.idea
+_windows
+codestyles
+*.xml
+*.iml
