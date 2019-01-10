@@ -16,18 +16,24 @@ public class Calculator {
     public Double calculate() {
         String[] mathPhrase = inputMathPhrase.split(" ");
 
-        double firstNumber = Double.parseDouble(mathPhrase[0]);
-        double secondNumber = Double.parseDouble(mathPhrase[2]);
+        int firstNumber = Integer.parseInt(mathPhrase[0]);
+        int secondNumber = Integer.parseInt(mathPhrase[2]);
 
         switch (mathPhrase[1]) {
-            case "+": return (firstNumber + secondNumber);
-            case "*" : return (firstNumber * secondNumber);
-            case "/" : return (firstNumber / secondNumber);
-            case "-" : return (firstNumber - secondNumber);
-            case "^" : return (pow(firstNumber, secondNumber));
-            case "%" : return (IEEEremainder(firstNumber,secondNumber));
-            default: return null;
+            case "+":
+                return Double.valueOf((addExact(firstNumber, secondNumber)));
+            case "*":
+                return Double.valueOf((multiplyExact(firstNumber, secondNumber)));
+            case "/":
+                return (Double.valueOf(firstNumber) / Double.valueOf(secondNumber));
+            case "-":
+                return Double.valueOf((firstNumber - secondNumber));
+            case "^":
+                return (pow(firstNumber, secondNumber));
+            case "%":
+                return Double.valueOf((floorMod(firstNumber, secondNumber)));
+            default:
+                return null;
         }
     }
-
 }
