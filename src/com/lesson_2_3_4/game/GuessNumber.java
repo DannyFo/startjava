@@ -3,7 +3,7 @@ package com.lesson_2_3_4.game;//1
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class GuessNumber {	
+public class GuessNumber {
     private int randomNumber = (int) (Math.random() * 101);
     private Player player1;
     private Player player2;
@@ -20,58 +20,56 @@ public class GuessNumber {
     public void game() {
 
         do {
-            if (IsGuess(player1))
-                break;
-
-            IsGameEnded(player1);
-
-            if (IsGuess(player2))
-                break;
-
-            IsGameEnded(player2);
-            attempt++;
-
-            if (attempt == 10) {
-                attempt = attempt-1;
-                printAttemptsArrayForAllPlayers(player2);
+            if (compareRandomNumber(player1)) {
                 break;
             }
-        } while(attempt<10);
 
-     player1.nullPlayerNumbers();
-     player2.nullPlayerNumbers();
+            isGameEnded(player1);
+
+            if (compareRandomNumber(player2)) {
+                break;
+            }
+
+            if (isGameEnded(player2)) {
+                break;
+            }
+            attempt++;
+
+        } while (attempt < 10);
+
+        player1.nullPlayerNumbers();
+        player2.nullPlayerNumbers();
     }
 
-    private boolean IsGuess(Player player) {
-        setArray(player);
-        if (player.getNumber() == randomNumber) {
+    private boolean isGameEnded(Player player) {
+        if (attempt + 1 == 10 && player == player1) {
+            endGameUlose(player);
+        } else if (attempt + 1 == 10) {
+            endGameUlose(player);
             printAttemptsArrayForAllPlayers(player);
-            endGameUguess(player);
             return true;
         }
         return false;
     }
 
-    private void IsGameEnded(Player player) {
-        if  (attempt + 1 == 10) {
-            endGameUlose(player);
-        }
-    }
-
-    private void setArray(Player player) {
+    private void inputNumberIntoArray(Player player) {
         System.out.println(player.getName() + "'s player numbers");
-        int playerNumber = scan.nextInt();
-        player.setNumber(playerNumber);
+        player.setNumber(scan.nextInt());
         player.setPlayerNumbers(attempt);
-        compareRandomNumber(player.getNumber());
     }
 
-    private void compareRandomNumber(int playerNumber) {
-        if (playerNumber > randomNumber) {
-            System.out.println("The number you entered is greater than what the computer thought");
-        } else if (playerNumber < randomNumber) { 
+    private boolean compareRandomNumber(Player player) {
+        inputNumberIntoArray(player);
+        if (player.getNumber() == randomNumber) {
+            printAttemptsArrayForAllPlayers(player);
+            endGameUguess(player);
+            return true;
+        } else if (player.getNumber() < randomNumber) {
             System.out.println("The number you entered is less than what the computer thought");
+        } else if (player.getNumber() > randomNumber) {
+            System.out.println("The number you entered is greater than what the computer thought");
         }
+        return false;
     }
 
     private void printAttemptsArrayForAllPlayers(Player player) {//вывод попыток игроков для всех игроков
@@ -84,7 +82,7 @@ public class GuessNumber {
         }
     }
 
-    private void printAttemptsArray(int counterControl,Player player) { // counterControl - контроль отображения выводимых значений (чтобы было без 0 у 2 игрока при завершении цикла у 1 игрока)
+    private void printAttemptsArray(int counterControl, Player player) { // counterControl - контроль отображения выводимых значений (чтобы было без 0 у 2 игрока при завершении цикла у 1 игрока)
         System.out.print(player.getName() + "'s numbers: ");
         int[] printAttempts = player.getPlayerNumbers(attempt, counterControl);
         System.out.print(Arrays.toString(printAttempts));
