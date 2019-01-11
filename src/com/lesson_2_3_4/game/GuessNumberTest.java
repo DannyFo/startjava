@@ -14,8 +14,8 @@ public class GuessNumberTest {
         Player player2 = new Player(scan.next());
 
         do {
-            GuessNumber guess1 = new GuessNumber(player1, player2);
-            guess1.game();
+            GuessNumber guess = new GuessNumber(player1, player2);
+            guess.startGame();
             do {
                 System.out.println("Do u wanna continue? [y/n]");
                 answerContinue = scan.next();

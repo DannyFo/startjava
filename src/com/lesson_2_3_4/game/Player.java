@@ -21,20 +21,17 @@ public class Player {
         return name;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
     public int getNumber() {
         return number;
     }
 
-    public void setPlayerNumbers(int index) {
-        playerNumbers[index] = getNumber();
+    public void setPlayerNumbers(int index, int number) {
+        this.number = number;
+        playerNumbers[index] = number;
     }
 
-    public int[] getPlayerNumbers(int attempt, int counterControl) {
-        int[] printAttempts = copyOf(playerNumbers, (attempt + 1 + counterControl));
+    public int[] getPlayerNumbers(int attempt) {
+        int[] printAttempts = copyOf(playerNumbers, (attempt + 1));
         return printAttempts;
     }
 

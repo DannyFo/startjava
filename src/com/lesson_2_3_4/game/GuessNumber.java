@@ -17,16 +17,20 @@ public class GuessNumber {
         this.player2 = player2;
     }
 
-    public void game() {
+    public void startGame() {
 
         do {
-            if (compareRandomNumber(player1)) {
+            inputNumber(player1);
+
+            if (comparePlayerNumber(player1)) {
                 break;
             }
 
             isGameEnded(player1);
 
-            if (compareRandomNumber(player2)) {
+            inputNumber(player2);
+
+            if (comparePlayerNumber(player2)) {
                 break;
             }
 
@@ -41,28 +45,15 @@ public class GuessNumber {
         player2.nullPlayerNumbers();
     }
 
-    private boolean isGameEnded(Player player) {
-        if (attempt + 1 == 10 && player == player1) {
-            endGameUlose(player);
-        } else if (attempt + 1 == 10) {
-            endGameUlose(player);
-            printAttemptsArrayForAllPlayers(player);
-            return true;
-        }
-        return false;
-    }
-
-    private void inputNumberIntoArray(Player player) {
+    private void inputNumber(Player player) {
         System.out.println(player.getName() + "'s player numbers");
-        player.setNumber(scan.nextInt());
-        player.setPlayerNumbers(attempt);
+        player.setPlayerNumbers(attempt, scan.nextInt());
     }
 
-    private boolean compareRandomNumber(Player player) {
-        inputNumberIntoArray(player);
+    private boolean comparePlayerNumber(Player player) {
         if (player.getNumber() == randomNumber) {
-            printAttemptsArrayForAllPlayers(player);
-            endGameUguess(player);
+            printUserNumbers(player);
+            endGameYouGuess(player);
             return true;
         } else if (player.getNumber() < randomNumber) {
             System.out.println("The number you entered is less than what the computer thought");
@@ -72,28 +63,39 @@ public class GuessNumber {
         return false;
     }
 
-    private void printAttemptsArrayForAllPlayers(Player player) {//вывод попыток игроков для всех игроков
+    private boolean isGameEnded(Player player) {
+        if (attempt + 1 == 10 && player == player1) {
+            endGameYouLose(player);
+        } else if (attempt + 1 == 10) {
+            endGameYouLose(player);
+            printUserNumbers(player);
+            return true;
+        }
+        return false;
+    }
+
+    private void printUserNumbers(Player player) {//вывод попыток игроков для всех игроков
         if (player == player1) {
-            printAttemptsArray(0, player1);
-            printAttemptsArray(-1, player2);
+            printAttemptsArray(player1, attempt);
+            printAttemptsArray(player2, (attempt - 1));
         } else {
-            printAttemptsArray(0, player1);
-            printAttemptsArray(0, player2);
+            printAttemptsArray(player1, attempt);
+            printAttemptsArray(player2, attempt);
         }
     }
 
-    private void printAttemptsArray(int counterControl, Player player) { // counterControl - контроль отображения выводимых значений (чтобы было без 0 у 2 игрока при завершении цикла у 1 игрока)
+    private void printAttemptsArray(Player player, int attempt) {
         System.out.print(player.getName() + "'s numbers: ");
-        int[] printAttempts = player.getPlayerNumbers(attempt, counterControl);
+        int[] printAttempts = player.getPlayerNumbers(attempt);
         System.out.print(Arrays.toString(printAttempts));
         System.out.println(" ");
     }
 
-    private void endGameUguess(Player player) {//вывод на экран если игрок угадал число
+    private void endGameYouGuess(Player player) {//вывод на экран если игрок угадал число
         System.out.println("Player " + player.getName() + " guess number " + randomNumber + " after " + (attempt + 1) + " attempts");
     }
 
-    private void endGameUlose(Player player) {//вывод на экран если игрок не угадал число после-ти попыток
+    private void endGameYouLose(Player player) {//вывод на экран если игрок не угадал число после-ти попыток
         System.out.println("Player " + player.getName() + " has run out of attempts ");
     }
 }
