@@ -8,7 +8,7 @@ public class GuessNumber {
     private Player player1;
     private Player player2;
 
-    private int attempt = 0;
+    private int attempt = 1;
 
     Scanner scan = new Scanner(System.in);
 
@@ -18,11 +18,11 @@ public class GuessNumber {
     }
 
     public void startGame() {
-
         do {
             inputNumber(player1);
 
             if (comparePlayerNumber(player1)) {
+                player1.setIsWin(true);
                 break;
             }
 
@@ -31,15 +31,18 @@ public class GuessNumber {
             inputNumber(player2);
 
             if (comparePlayerNumber(player2)) {
+                player2.setIsWin(true);
                 break;
             }
 
-            if (isGameEnded(player2)) {
-                break;
-            }
             attempt++;
 
-        } while (attempt < 10);
+        } while (attempt <= 10);
+
+        isGameEnded(player2);
+        printUserNumbers();
+        printMessageAboutWinner(player1);
+        printMessageAboutWinner(player2);
 
         player1.nullPlayerNumbers();
         player2.nullPlayerNumbers();
@@ -47,13 +50,11 @@ public class GuessNumber {
 
     private void inputNumber(Player player) {
         System.out.println(player.getName() + "'s player numbers");
-        player.setPlayerNumbers(attempt, scan.nextInt());
+        player.setPlayerNumbers((attempt - 1), scan.nextInt());
     }
 
     private boolean comparePlayerNumber(Player player) {
         if (player.getNumber() == randomNumber) {
-            printUserNumbers(player);
-            endGameYouGuess(player);
             return true;
         } else if (player.getNumber() < randomNumber) {
             System.out.println("The number you entered is less than what the computer thought");
@@ -63,39 +64,42 @@ public class GuessNumber {
         return false;
     }
 
-    private boolean isGameEnded(Player player) {
-        if (attempt + 1 == 10 && player == player1) {
-            endGameYouLose(player);
-        } else if (attempt + 1 == 10) {
-            endGameYouLose(player);
-            printUserNumbers(player);
-            return true;
+    private void isGameEnded(Player player) {
+        if (attempt == 10 && player == player1) {
+            printMessageAboutLoser(player);
+        } else if (attempt == 10) {
+            printMessageAboutLoser(player);
         }
-        return false;
     }
 
-    private void printUserNumbers(Player player) {//вывод попыток игроков для всех игроков
-        if (player == player1) {
-            printAttemptsArray(player1, attempt);
-            printAttemptsArray(player2, (attempt - 1));
+    private void printUserNumbers() {//вывод попыток игроков для всех игроков
+
+        if (player1.getIsWin()) {
+            printAttempts(player1, (attempt + 1));
+            printAttempts(player2, (attempt));
+        } else if (player2.getIsWin()) {
+            printAttempts(player1, (attempt + 1));
+            printAttempts(player2, (attempt + 1));
         } else {
-            printAttemptsArray(player1, attempt);
-            printAttemptsArray(player2, attempt);
+            printAttempts(player1, attempt);
+            printAttempts(player2, attempt);
         }
     }
 
-    private void printAttemptsArray(Player player, int attempt) {
+    private void printAttempts(Player player, int attempt) {
         System.out.print(player.getName() + "'s numbers: ");
-        int[] printAttempts = player.getPlayerNumbers(attempt);
+        int[] printAttempts = player.getPlayerNumbers(attempt - 1);
         System.out.print(Arrays.toString(printAttempts));
         System.out.println(" ");
     }
 
-    private void endGameYouGuess(Player player) {//вывод на экран если игрок угадал число
-        System.out.println("Player " + player.getName() + " guess number " + randomNumber + " after " + (attempt + 1) + " attempts");
+    private void printMessageAboutWinner(Player player) {//вывод на экран если игрок угадал число
+        if (player.getIsWin()) {
+            System.out.println("Player " + player.getName() + " guess number " + randomNumber + " after " + attempt + " attempts");
+        }
     }
 
-    private void endGameYouLose(Player player) {//вывод на экран если игрок не угадал число после-ти попыток
+    private void printMessageAboutLoser(Player player) {//вывод на экран если игрок не угадал число после-ти попыток
         System.out.println("Player " + player.getName() + " has run out of attempts ");
     }
 }

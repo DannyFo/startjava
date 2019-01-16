@@ -8,6 +8,7 @@ public class Player {
     private String name;
     private int number;
     private int[] playerNumbers = new int[10];
+    private boolean isWin = false;
 
     public Player(String name) {
         this.name = name;
@@ -31,9 +32,18 @@ public class Player {
     }
 
     public int[] getPlayerNumbers(int attempt) {
-        int[] printAttempts = copyOf(playerNumbers, (attempt + 1));
+        int[] printAttempts = copyOf(playerNumbers, attempt);
         return printAttempts;
     }
+
+    public void setIsWin(boolean isWin) {
+        this.isWin = isWin;
+    }
+
+    public boolean getIsWin() {
+        return isWin;
+    }
+
 
     public void nullPlayerNumbers() {
         Arrays.fill(playerNumbers, 0);
