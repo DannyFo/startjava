@@ -22,16 +22,16 @@ public class GuessNumber {
             inputNumber(player1);
 
             if (comparePlayerNumber(player1)) {
-                player1.setIsWin(true);
+                printMessageAboutWinner(player1);
                 break;
             }
 
-            isGameEnded(player1);
+            attemptsEnded(player1);
 
             inputNumber(player2);
 
             if (comparePlayerNumber(player2)) {
-                player2.setIsWin(true);
+                printMessageAboutWinner(player2);
                 break;
             }
 
@@ -39,10 +39,8 @@ public class GuessNumber {
 
         } while (attempt <= 10);
 
-        isGameEnded(player2);
+        attemptsEnded(player2);
         printUserNumbers();
-        printMessageAboutWinner(player1);
-        printMessageAboutWinner(player2);
 
         player1.nullPlayerNumbers();
         player2.nullPlayerNumbers();
@@ -64,10 +62,8 @@ public class GuessNumber {
         return false;
     }
 
-    private void isGameEnded(Player player) {
-        if (attempt == 10 && player == player1) {
-            printMessageAboutLoser(player);
-        } else if (attempt == 10) {
+    private void attemptsEnded(Player player) {
+        if (attempt == 10) {
             printMessageAboutLoser(player);
         }
     }
@@ -94,9 +90,7 @@ public class GuessNumber {
     }
 
     private void printMessageAboutWinner(Player player) {//вывод на экран если игрок угадал число
-        if (player.getIsWin()) {
-            System.out.println("Player " + player.getName() + " guess number " + randomNumber + " after " + attempt + " attempts");
-        }
+        System.out.println("Player " + player.getName() + " guess number " + randomNumber + " after " + attempt + " attempts");
     }
 
     private void printMessageAboutLoser(Player player) {//вывод на экран если игрок не угадал число после-ти попыток
