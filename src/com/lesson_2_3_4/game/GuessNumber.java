@@ -22,28 +22,31 @@ public class GuessNumber {
             inputNumber(player1);
 
             if (comparePlayerNumber(player1)) {
+                player1.setIsWin(true);
                 printMessageAboutWinner(player1);
                 break;
             }
 
-            attemptsEnded(player1);
+            checkEndOfAttempts(player1);
 
             inputNumber(player2);
 
             if (comparePlayerNumber(player2)) {
+                player2.setIsWin(true);
                 printMessageAboutWinner(player2);
                 break;
             }
 
+            checkEndOfAttempts(player2);
             attempt++;
 
         } while (attempt <= 10);
 
-        attemptsEnded(player2);
+
         printUserNumbers();
 
-        player1.nullPlayerNumbers();
-        player2.nullPlayerNumbers();
+        player1.nullPlayerNumbers(attempt);
+        player2.nullPlayerNumbers(attempt);
     }
 
     private void inputNumber(Player player) {
@@ -62,7 +65,7 @@ public class GuessNumber {
         return false;
     }
 
-    private void attemptsEnded(Player player) {
+    private void checkEndOfAttempts(Player player) {
         if (attempt == 10) {
             printMessageAboutLoser(player);
         }

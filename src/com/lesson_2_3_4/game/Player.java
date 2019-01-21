@@ -45,7 +45,7 @@ public class Player {
     }
 
 
-    public void nullPlayerNumbers() {
-        Arrays.fill(playerNumbers, 0);
+    public void nullPlayerNumbers(int attempt) {
+        Arrays.fill(playerNumbers, 0, (attempt-1), 0);
     }
 }	
