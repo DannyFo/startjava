@@ -75,7 +75,7 @@ public class GuessNumber {
     private void printUserNumbers() {//вывод попыток игроков для всех игроков
 
         if (player1.getIsWin()) {
-            printAttempts(player1, (attempt + 1));
+            printAttempts(player1, (attempt+1));
             printAttempts(player2, (attempt));
         } else if (player2.getIsWin()) {
             printAttempts(player1, (attempt + 1));
